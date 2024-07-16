@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.airlinerreservationsystem.entity.airline;
 
 import com.airlinerreservationsystem.repository.airlineRepository;
+
+import exception.UserNotFoundException;
 
 
 
@@ -42,4 +45,13 @@ public class AirlineController {
 		airline air = repo.findById(a_id).get();
 		return air;
 	}
+	
+	@DeleteMapping("/airlines/delete/{a_id}")
+    String deleteUser(@PathVariable int a_id){
+        if(!repo.existsById(a_id )){
+            throw new UserNotFoundException(a_id);
+        }
+       repo.deleteById(a_id);
+        return  "User with id "+a_id+" has been deleted success.";
+    }
 }

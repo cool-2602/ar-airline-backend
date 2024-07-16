@@ -16,7 +16,7 @@ public class ReservationController {
 	@Autowired
 	private ReservationRepository repo;
 	
-	@PostMapping("/resev/add")
+	@PostMapping("/reserv/add")
 	Reservation newFlights(@RequestBody Reservation reservation) {
 		return repo.save(reservation);
 	}

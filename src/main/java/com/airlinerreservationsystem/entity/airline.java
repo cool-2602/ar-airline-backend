@@ -13,9 +13,8 @@ public class airline {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
-	
 	private int a_id;
+	
 	@Column(name= "a_name")
 	private String a_name;
 	
