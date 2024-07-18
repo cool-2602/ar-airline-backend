@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.airlinerreservationsystem.entity.airline;
 import com.airlinerreservationsystem.entity.flights;
 import com.airlinerreservationsystem.repository.flightRepository;
 
@@ -72,6 +75,26 @@ public class flightsController {
 		}
 
 		return new ArrayList<>(cities);
+	}
+	
+	@PutMapping("/flights/update/{f_id}")
+	public flights updateAirport(@RequestBody flights flight, @PathVariable int f_id)
+	{
+		flights flightdb=repo.findById(f_id).get();
+		
+		flightdb.setOrigin(flight.getOrigin());
+		flightdb.setDestination(flight.getDestination());
+		flightdb.setA_time(flight.getA_time());
+		flightdb.setD_time(flight.getD_time());
+		flightdb.setCountry(flight.getCountry());
+		flightdb.setDate(flight.getDate());
+		flightdb.setSeats(flight.getSeats());
+
+		System.out.println(flightdb);
+		
+		repo.save(flightdb);
+		return flightdb;
+		
 	}
 	
 	@DeleteMapping("/flights/delete/{f_id}")

@@ -51,12 +51,17 @@ public class AirportController {
 	
 	
 	//
-	@PutMapping("airports/update/{airport_code}")
-	public airports updateAirport(@PathVariable int airport_code)
+	@PutMapping("/airports/update/{airport_code}")
+	public airports updateAirport(@RequestBody airports port, @PathVariable int airport_code)
 	{
 		airports airport =repo.findById(airport_code).get();
-		airport.setAirport_name("Pune Airport");
-		airport.setLocation("Pune");
+		airport.setAirport_code(port.getAirport_code());
+		airport.setAirport_name(port.getAirport_name());
+		airport.setLocation(port.getLocation());
+//		airport.setAirport_name("Pune Airport");
+//		airport.setLocation("Pune");
+		
+		System.out.println(airport);
 		
 		repo.save(airport);
 		return airport;
